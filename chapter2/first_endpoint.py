@@ -5,11 +5,22 @@ from chapter1.model import OrderLine
 # Psudocode
 @flask.route.gubbins
 def allocate_endpoint():
-    # 요청으로부터 주문라인 추출
-    line = OrderLine(request.params..)
-    # DB에서 모든 배치 가져오기
-    batchs = None
-    # 도메인 서비스 호출
+    session = start_session()
+
+    # 요청애서 주문라인을 추출
+    line = OrderLine(
+        request.json['orderId'],
+        request.json['sku'],
+        request.json['qty'],
+    )
+
+    # DB에서 모든 배치를 가져온다
+    batches = session.query(Batch).all()
+
+    # 도메인 서비스를 호출한다
     allocate(line, batches)
-    # 어떤 방식으로든 할당한 배치를 다시 데이터베이스에 저장
+
+    # 할당온 데이터베이스에 저장한다
+    session.commit()
+
     return 201
