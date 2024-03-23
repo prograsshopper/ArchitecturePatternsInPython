@@ -1,25 +1,17 @@
 import flask
 
 from chapter1.model import OrderLine
+from repository import SqlAlchemyRepository
 
 # Psudocode
 @flask.route.gubbins
 def allocate_endpoint():
-    session = start_session()
-
-    # 요청애서 주문라인을 추출
-    line = OrderLine(
-        request.json['orderId'],
-        request.json['sku'],
-        request.json['qty'],
-    )
-
-    # DB에서 모든 배치를 가져온다
-    batches = session.query(Batch).all()
-
-    # 도메인 서비스를 호출한다
+    batches = SqlAlchemyRepository.list()
+    lines = [
+        OrderLine(l['orderId'],l['sku'],l['qty'])
+        for l in request.params
+    ]
     allocate(line, batches)
-
     # 할당온 데이터베이스에 저장한다
     session.commit()
 
