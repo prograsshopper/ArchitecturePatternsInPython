@@ -3,9 +3,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 import config
-import model
-import orm
-import repository
+from chapter1 import model
+from chapter2 import orm
+from chapter2 import repository
 import services
 
 
@@ -28,3 +28,21 @@ def allocate_endpoint():
         return jsonify({"message": str(e)}), 400
 
     return jsonify({"batchref": batchref}), 201
+
+
+@app.route("/deallocate", methods=["POST"])
+def deallocate_endpoint():
+    session = get_session()
+    repo = repository.SqlAlchemyRepository(session)
+    line = model.OrderLine(
+        request.json["orderid"],
+        request.json["sku"],
+        request.json["qty"],
+    )
+
+    try:
+        batchref = services.deallocate(line, repo, session)
+    except (model.OutOfStock, services.InvalidSku) as e:
+        return {"message": str(e)}, 400
+
+    return {"batchid": batchref}, 201

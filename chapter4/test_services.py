@@ -1,6 +1,6 @@
 import pytest
-import model
-import repository
+from chapter1 import model
+from chapter2 import repository
 import services
 
 
