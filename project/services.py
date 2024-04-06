@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from typing import Optional
+from datetime import date
+
 from chapter1 import model
 from chapter1.model import OrderLine
 from chapter2.repository import AbstractRepository
@@ -29,3 +32,11 @@ def deallocate(line: OrderLine, repo: AbstractRepository, session) -> str:
     batchref = model.deallocate(line, batches)
     session.commit()
     return batchref
+
+
+def add_batch(
+        ref: str, sku: str, qty: int, eta: Optional[date],
+        repo: AbstractRepository, session,
+):
+    repo.add(model.Batch(ref, sku, qty, eta))
+    session.commit()
