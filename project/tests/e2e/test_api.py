@@ -2,7 +2,7 @@ import uuid
 import pytest
 import requests
 
-from project import config
+from project.allocation import config
 
 
 def random_suffix():

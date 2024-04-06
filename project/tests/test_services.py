@@ -1,8 +1,9 @@
 import pytest
 from chapter1 import model
+from project.allocation.domain.model import Batch, OrderLine
 from chapter2 import repository
-import services
-from services import allocate
+from project.allocation.service_layer import services
+from project.allocation.service_layer.services import allocate
 
 
 class FakeRepository(repository.AbstractRepository):
@@ -58,7 +59,7 @@ def test_prefers_current_stock_batches_to_shipments():
     shipment_batch = Batch("shipment-batch", "RETRO-CLOCK", 100, eta=tomorrow)
     line = OrderLine("oref", "RETRO-CLOCK", 10)
 
-    allocate(line, [in_stock_batch, shipment_batch]
+    allocate(line, [in_stock_batch, shipment_batch])
 
     assert in_stock_batch.available_quantiry == 90
     assert shipment_batch.available_quantiry == 100
