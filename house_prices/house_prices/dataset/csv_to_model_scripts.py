@@ -2,7 +2,7 @@ import pandas as pd
 from django.utils import timezone
 from datetime import timedelta
 
-from house_prices.house_prices.core.models import HousePriceFactor
+from house_prices.house_prices.core.models.data_model import HousePriceFactor
 from house_prices.house_prices.core.utils import mapping_dict
 
 days_per = 5
