@@ -7,6 +7,9 @@ class TrainedModel(models.Model):
     serialized_model = models.BinaryField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = "trained_model"
+
 
 class ModelEvaluation(models.Model):
     model_name = models.CharField(max_length=100)
@@ -14,3 +17,6 @@ class ModelEvaluation(models.Model):
     train_score = models.FloatField()
     test_score = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "model_evaluation"
