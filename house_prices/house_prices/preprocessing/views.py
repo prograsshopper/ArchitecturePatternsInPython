@@ -3,17 +3,17 @@ import traceback
 from django.db import transaction
 from django.utils import timezone
 
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
 import pandas as pd
 
-from house_prices.house_prices.core.utils import mapping_dict
-from house_prices.house_prices.core.models.data_model import HousePriceFactor
+from core.utils import mapping_dict
+from core.models.data_model import HousePriceFactor
 
 
-class CSVDataView(CreateAPIView):
+class CSVDataView(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         try:
             current_date = request.data.get("data_date", timezone.now())
