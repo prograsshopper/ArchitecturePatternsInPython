@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-from datetime import timedelta
-
 
 class HousePriceFactor(models.Model):
     id = models.IntegerField(primary_key=True)
