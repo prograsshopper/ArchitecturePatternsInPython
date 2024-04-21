@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_extensions',
+
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -76,13 +80,17 @@ WSGI_APPLICATION = 'house_prices.wsgi.application'
 
 DATABASES = {
     'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ.get('db_name'),
-            'USER': os.environ.get('db_user'),
-            'PASSWORD': os.environ.get('db_password'),
-            'HOST': '127.0.0.1',
-            'PORT': os.environ.get('db_port'),
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    # 'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': os.environ.get('db_name'),
+    #         'USER': os.environ.get('db_user'),
+    #         'PASSWORD': os.environ.get('db_password'),
+    #         'HOST': '127.0.0.1',
+    #         'PORT': os.environ.get('db_port'),
+    #     }
 }
 
 
