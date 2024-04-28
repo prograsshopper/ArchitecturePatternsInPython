@@ -8,4 +8,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('preprocessing/', include('preprocessing.urls')),
+    path('learning/', include('learning.urls')),
 ]
